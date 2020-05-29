@@ -1,5 +1,5 @@
 const config = {
-    endpoint: 'http://localhost:3333',
+    endpoint: 'http://localhost:8080',
     localStorageKey: 'pagseguro-react-example'
 }
 

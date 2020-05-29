@@ -73,16 +73,17 @@ export default class Component extends React.Component {
 			paymentLink: null,
 			paid: false,
 
-			session: '',
-
+			session:'',
+			
+			env: 'sandbox',
 
 			// Informações do comprador
 			sender: {
-				name: 'Willy Chagas',
-				email: 'c48186756307979379590@sandbox.pagseguro.com.br',
+				name: 'Carlos Eduardo Andrade Lima',
+				email: 'edurock@sandbox.pagseguro.com.br',
 				phone: {
-					areaCode: '48',
-					number: '91510980',
+					areaCode: '81',
+					number: '915109807',
 				},
 				document: {
 					type: 'CPF',
@@ -93,7 +94,8 @@ export default class Component extends React.Component {
 
 			// Endereço de entrega
 			shipping: {
-				//addressRequired: false
+				addressRequired: false    //Aqui decidimos se vai ter frete ou não.
+				/*
 				type: 3,
 				cost: 10.00,
 				street: 'Av Joao Lima',
@@ -104,6 +106,7 @@ export default class Component extends React.Component {
 				state: 'SC',
 				country: 'BRA',
 				postalCode: '88063333'
+				*/
 			},
 
 
@@ -113,11 +116,11 @@ export default class Component extends React.Component {
 				street: 'Av Joao Lima',
 				number: 55,
 				complement: 'Casa',
-				district: 'Campeche',
-				city: 'Florianopolis',
-				state: 'SC',
+				district: 'Centro',
+				city: 'Cachoeirinha',
+				state: 'PE',
 				country: 'BRA',
-				postalCode: '88063333'
+				postalCode: '55380000'
 			},
 
 
@@ -126,33 +129,21 @@ export default class Component extends React.Component {
 			items: [
 				{
 					id: 1,
-					description: 'Produto 1',
-					quantity: 2,
-					amount: 2,
-				},
-				{
-					id: 2,
-					description: 'Produto 2',
+					description: 'Webnário Amazon',
 					quantity: 1,
-					amount: 60.00,
+					amount: 38.70,
 				},
-				{
-					id: 3,
-					description: 'Produto 3',
-					quantity: 2,
-					amount: 20.00,
-				}
-
+				
 			],
 
 
 			// Cartão de crédito
 			creditCard: {
-				maxInstallmentNoInterest: 0
+				maxInstallmentNoInterest: 3
 			},
 
-			extraAmount: 10.00,
-			reference: 'Teste Pagseguro React'
+			extraAmount: 0,
+			reference: 'Congreco Online'
 		}
 	}
 
@@ -166,11 +157,9 @@ export default class Component extends React.Component {
 		if (!session) {
 			axios.post(`${config.endpoint}/session`).then(res => {
 				this.setState({ session: res.data.content })
-			}).catch(err => console.error(err))
+			}).catch(err => console.error(err));
 		}
 	}
-
-
 
 	/**
 	* onSubmit
@@ -191,25 +180,26 @@ export default class Component extends React.Component {
 			.then(res => {
 
 				const { content } = res.data
+				
 				let newState = {}
 
-				switch (content.method) {
+				switch (content.paymentMethod.typeId) {
 
-					case 'boleto':
+					case 2:
 						newState = {
 							success: 'Acesse o link abaixo para imprimir o boleto',
 							paymentLink: content.paymentLink
 						}
 						break;
 
-					case 'onlineDebit':
+					case 3:
 						newState = {
-							success: 'Acesse seu baco e finalize a transação',
+							success: 'Acesse seu banco e finalize a transação',
 							paymentLink: content.paymentLink
 						}
 						break;
 
-					case 'creditCard':
+					case 1:
 						newState = {
 							success: 'Pagamento realizado com sucesso',
 						}
