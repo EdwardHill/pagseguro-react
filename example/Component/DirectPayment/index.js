@@ -139,7 +139,10 @@ export default class Component extends React.Component {
 
 			// Cartão de crédito
 			creditCard: {
-				maxInstallmentNoInterest: 3
+
+				//pagamento parcelado sem juros: PRECISA SER MAIOR MAIOR OU IGUAL A "2" !
+				maxInstallmentNoInterest: 3,
+				
 			},
 
 			extraAmount: 0,
