@@ -132,7 +132,7 @@ export default class Component extends React.Component {
 					description: 'Webnário Amazon',
 					quantity: 1,
 					amount: 247.50,
-				},
+				}
 				
 			],
 
@@ -141,12 +141,12 @@ export default class Component extends React.Component {
 			creditCard: {
 
 				//pagamento parcelado sem juros: PRECISA SER MAIOR MAIOR OU IGUAL A "2" !
-				maxInstallmentNoInterest: 6,
+				maxInstallmentNoInterest: 3,
 				
 			},
 
 			extraAmount: 0,
-			reference: 'Congreco Online'
+			reference: 'Produtor: Congreco Online'
 		}
 	}
 
