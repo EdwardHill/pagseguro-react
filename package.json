@@ -29,10 +29,11 @@
 		"axios": "^0.18.1",
 		"babel-loader": "^8.0.5",
 		"babel-plugin-add-module-exports": "^1.0.0",
-		"compression-webpack-plugin": "^2.0.0",
+		"compression-webpack-plugin": "^5.0.1",
+		"cross-env": "^7.0.2",
 		"css-loader": "^2.1.0",
 		"jest": "^24.1.0",
-		"node-env-run": "^3.0.2",
+		"node-env-run": "^4.0.1",
 		"rimraf": "^2.6.3",
 		"style-loader": "^0.23.1",
 		"terser-webpack-plugin": "^1.2.2",
@@ -41,7 +42,7 @@
 		"webpack": "^4.29.5",
 		"webpack-bundle-analyzer": "^3.0.4",
 		"webpack-cli": "^3.2.3",
-		"webpack-dev-server": "^3.1.14",
+		"webpack-dev-server": "^3.11.0",
 		"webpack-node-externals": "^1.7.2"
 	},
 	"dependencies": {
@@ -65,5 +66,8 @@
 		"react",
 		"checkout",
 		"transparente"
-	]
+	],
+	"optionalDependencies": {
+		"win-node-env": "^0.4.0"
+	}
 }

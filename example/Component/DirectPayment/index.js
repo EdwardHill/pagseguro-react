@@ -3,10 +3,15 @@ import styled, { css } from 'styled-components';
 import { DirectPayment, Loading } from '../../../src';
 import config from '../../config';
 import axios from 'axios';
-import style from './style.css'
+import style from './style.css';
+
+
 
 const Home = styled.div`
-    position: relative;
+	position: relative;
+	.inAxhN installment{
+		display: none;
+	}
 `;
 
 const LoadingContainer = styled.div`
@@ -21,6 +26,7 @@ const LoadingContainer = styled.div`
         top: 40%;
     }
 `
+
 
 const Feedback = styled.div`
     background: #f5f5f5;
@@ -75,7 +81,7 @@ export default class Component extends React.Component {
 
 			session:'',
 			
-			env: 'sandbox',
+			env: '',
 
 			// Informações do comprador
 			sender: {
@@ -114,7 +120,7 @@ export default class Component extends React.Component {
 			// Endereço de cobrança
 			billing: {
 				street: 'Av Joao Lima',
-				number: 55,
+				number: '55',
 				complement: 'Casa',
 				district: 'Centro',
 				city: 'Cachoeirinha',
@@ -129,9 +135,9 @@ export default class Component extends React.Component {
 			items: [
 				{
 					id: 1,
-					description: 'Webnário Amazon',
+					description: 'Motoclub Premium',
 					quantity: 1,
-					amount: 247.50,
+					amount: 29.90,
 				}
 				
 			],
@@ -145,8 +151,8 @@ export default class Component extends React.Component {
 				
 			},
 
-			extraAmount: 0,
-			reference: 'Produtor: Congreco Online'
+			reference: '',
+            extraAmount:  0
 		}
 	}
 
@@ -156,12 +162,15 @@ export default class Component extends React.Component {
 	* componentDidMount
 	*/
 	componentDidMount() {
+		
 		const { session } = this.state;
 		if (!session) {
 			axios.post(`${config.endpoint}/session`).then(res => {
 				this.setState({ session: res.data.content })
 			}).catch(err => console.error(err));
+
 		}
+		
 	}
 
 	/**
@@ -171,7 +180,7 @@ export default class Component extends React.Component {
 
 		console.log('sending to API...')
 		console.log(data)
-
+		
 		this.setState({
 			loading: true,
 			error: null,
@@ -244,13 +253,16 @@ export default class Component extends React.Component {
 		if (!this.state.session) {
 			return null;
 		}
-
+		
 		return <Home>
+			
 			{
 				this.state.loading && <LoadingContainer><Loading /></LoadingContainer>
 			}
 
 			{
+				
+
 				!this.state.paid &&
 				<DirectPayment
 					env="sandbox"
@@ -264,19 +276,20 @@ export default class Component extends React.Component {
 					items={this.state.items}
 					exclude={[
 						// 'CREDIT_CARD',
-						//'ONLINE_DEBIT',
-						//'BOLETO'
+						'ONLINE_DEBIT',
+						'BOLETO'
 					]}
 					onError={this.onError.bind(this)}
 					onSubmit={this.onSubmit.bind(this)}
-				/*
-					hiddenSenderForm
+				
+					//hiddenSenderForm
 					hiddenShippingForm
-					hiddenBillingForm
-				*/
+					//hiddenBillingForm
+				
 				/>
+				
 			}
-
+				
 			{
 				this.state.success && <Feedback>
 					<h1>{this.state.success}</h1>
@@ -299,8 +312,9 @@ export default class Component extends React.Component {
 				this.state.paymentLink && <Feedback>
 					<a href={this.state.paymentLink} target="_blank">ACESSAR</a>
 				</Feedback>
+				
 			}
-
+			
 		</Home>
 	}
 

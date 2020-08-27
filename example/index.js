@@ -6,4 +6,6 @@ import style from './style.css'
 ReactDOM.render(
 	<Home />,
 	document.getElementById('content')
+	
+	
 )

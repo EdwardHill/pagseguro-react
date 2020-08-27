@@ -18,6 +18,16 @@ import {
 } from '../Ui/Form';
 
 
+const FormGroupHide = styled.div`
+    margin-bottom: 1.2em;
+    position: relative;
+    overflow: hidden;
+	display:none;
+    ${props => props.mbMd && css`
+        margin-bottom: 2.4em;
+    `}
+
+`;
 const { path } = PAGSEGURO_API;
 const { getError } = error;
 
@@ -594,8 +604,9 @@ export default class CreditCard extends React.Component {
 				</Col>
 
 				<Col xs={12} sm={6} md={6} lg={4}>
-					<FormGroup>
-						<Label>Parcelas</Label>
+					<FormGroupHide  >
+						<Label></Label>
+						
 						<Select name="installment" value={installment} onChange={this.handleChange}>
 							{
 								installments && installments.length > 0 ? (
@@ -619,7 +630,8 @@ export default class CreditCard extends React.Component {
 									)
 							}
 						</Select>
-					</FormGroup>
+						
+					</FormGroupHide>
 				</Col>
 
 
