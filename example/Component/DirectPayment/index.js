@@ -134,15 +134,15 @@ export default class Component extends React.Component {
 
 			items: [
 				{
-					id: 1,
-					description: 'Motoclub Premium',
+					id: 1,   //  * {id} do Plano
+					description: 'Moto Club Premium', // * nome do Plano.
 					quantity: 1,
 					amount: 29.90,
 				}
 				
 			],
 
-
+				/*Parcelas não se emcaixam para assinaturas, apenas ignore.*/
 			// Cartão de crédito
 			creditCard: {
 
@@ -151,7 +151,7 @@ export default class Component extends React.Component {
 				
 			},
 
-			reference: '',
+			reference: '3', // * {id} Motoclub,
             extraAmount:  0
 		}
 	}

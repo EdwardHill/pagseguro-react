@@ -220,7 +220,7 @@ export default class Component extends React.Component {
 		return <Row>
 			<Col xs={12}>
 				<FormGroup mbMd>
-					<Checkbox checked={this.state.useShippingAddress} value={this.state.useShippingAddress} label="Usar o mesmo endereço de entrega" name="useShippingAddress" onChange={this.handleChange} />
+					<Checkbox checked={this.state.useShippingAddress} value={this.state.useShippingAddress} label="Usar o mesmo endereco cadastrado " name="useShippingAddress" onChange={this.handleChange} />
 				</FormGroup>
 			</Col>
 			<Col xs={12} sm={3} md={2} lg={2}>
