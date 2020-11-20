@@ -1,8 +1,9 @@
 {
-	"name": "pagseguro-react",
+	"proxy":"http://localhost:8080/",
+	"name": "pagseguro-react-signatures",
 	"version": "1.0.10",
-	"author": "Willy Chagas <chagaswc89@gmail.com",
-	"description": "Checkout transparente do pagseguro utilizando React",
+	"author": "Carlos Eduardo <edurock55@gmail.com",
+	"description": "Pagamento Recorrente do pagseguro utilizando React",
 	"license": "MIT",
 	"main": "./lib/index.js",
 	"scripts": {
@@ -55,17 +56,17 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/wchagas/pagseguro-react.git"
+		"url": "git+https://github.com/EdwardHill/pagseguro-react/tree/AlterRecorrente"
 	},
 	"bugs": {
-		"url": "https://github.com/wchagas/pagseguro-react/issues"
+		"url": "https://github.com/EdwardHill/pagseguro-react"
 	},
-	"homepage": "https://github.com/wchagas/pagseguro-react#readme",
+	"homepage": "https://github.com/EdwardHill/pagseguro-react#readme",
 	"keywords": [
 		"pagseguro",
 		"react",
 		"checkout",
-		"transparente"
+		"recorrente"
 	],
 	"optionalDependencies": {
 		"win-node-env": "^0.4.0"
