@@ -69,8 +69,8 @@ export default class Component extends React.Component {
 			paymentLink: null,
 			paid: false,
 			afiliadoCode: "",
-			idService: "",	
-			frete: "",
+			idService: "1",
+			frete: "1",
 			session: "",
 
 			env: "",
@@ -80,8 +80,8 @@ export default class Component extends React.Component {
 				name: "",
 				email: "",
 				phone: {
-					areaCode: "",
-					number: "",
+					areaCode: "81",
+					number: "915109807",
 				},
 				document: {
 					type: "CPF",
@@ -108,14 +108,14 @@ export default class Component extends React.Component {
 
 			// Endereço de cobrança
 			billing: {
-				// street: "Av Joao Lima",
-				// number: 55,
-				// complement: "Casa",
-				// district: "Centro",
-				// city: "Cachoeirinha",
-				// state: "PE",
-				// country: "BRA",
-				// postalCode: "55380000",
+				street: "Av Joao Lima",
+				number: 55,
+				complement: "Casa",
+				district: "Centro",
+				city: "Cachoeirinha",
+				state: "PE",
+				country: "BRA",
+				postalCode: "55380000",
 			},
 
 			// produtos
@@ -125,7 +125,7 @@ export default class Component extends React.Component {
 				// 	id: "",
 				// 	description: "",
 				// 	quantity: "",
-				// 	amount: "",	
+				// 	amount: "",
 				// },
 			],
 
@@ -145,28 +145,28 @@ export default class Component extends React.Component {
 	 */
 	componentDidMount() {
 		const { session } = this.state;
-		const {name} = this.state;
+		const { name } = this.state;
 		const afiliadoCode = this.state;
 		const frete = this.state;
 		const idService = this.state;
 
 		const result = new URLSearchParams(window.location.search);
-		const token = result.get('token');
-		const paymentPayload = result.get('payment');
+		const token = result.get("token");
+		const paymentPayload = result.get("payment");
 
 		const decoded = jwtDecode(token);
 		let decodedPaymentPayload;
 		try {
-			decodedPaymentPayload = JSON.parse(atob(paymentPayload));
-		} catch(e) {
+			decodedPaymentPayload = jwtDecode(paymentPayload);
+		} catch (e) {
 			alert("Objeto de pagamento inválido!");
 			return;
 		}
 
-		console.log(decodedPaymentPayload);
-
 		if (!name) {
-			this.setState({ sender:{ name: decoded.name, email: decoded.sub } });
+			this.setState({
+				sender: { name: decoded.name, email: decoded.email },
+			});
 		}
 
 		this.setState(decodedPaymentPayload, () => console.log(this.state));
@@ -174,7 +174,7 @@ export default class Component extends React.Component {
 			axios
 				.post(`${config.endpoint}/session`)
 				.then((res) => {
-					this.setState({ session: res.data.content });
+					this.setState({ sender: res.data.content });
 				})
 				.catch((err) => console.error(err));
 		}
