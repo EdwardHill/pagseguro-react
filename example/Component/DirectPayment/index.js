@@ -69,7 +69,7 @@ export default class Component extends React.Component {
 			paymentLink: null,
 			paid: false,
 			afiliadoCode: "",
-			idService: "",	
+			idService: "",
 			frete: "",
 			session: "",
 
@@ -114,7 +114,7 @@ export default class Component extends React.Component {
 				// district: "Centro",
 				// city: "Cachoeirinha",
 				// state: "PE",
-				// country: "BRA",
+				country: "BRA",
 				// postalCode: "55380000",
 			},
 
@@ -125,7 +125,7 @@ export default class Component extends React.Component {
 				// 	id: "",
 				// 	description: "",
 				// 	quantity: "",
-				// 	amount: "",	
+				// 	amount: "",
 				// },
 			],
 
@@ -136,7 +136,7 @@ export default class Component extends React.Component {
 			},
 
 			extraAmount: 0,
-			reference: 3,
+			reference: "",
 		};
 	}
 
@@ -145,20 +145,20 @@ export default class Component extends React.Component {
 	 */
 	componentDidMount() {
 		const { session } = this.state;
-		const {name} = this.state;
+		const { name } = this.state;
+		const items = this.state;
 		const afiliadoCode = this.state;
-		const frete = this.state;
-		const idService = this.state;
 
 		const result = new URLSearchParams(window.location.search);
-		const token = result.get('token');
-		const paymentPayload = result.get('payment');
+		const token = result.get("token");
+		const paymentPayload = result.get("payment");
 
 		const decoded = jwtDecode(token);
+		console.log(decoded);
 		let decodedPaymentPayload;
 		try {
 			decodedPaymentPayload = JSON.parse(atob(paymentPayload));
-		} catch(e) {
+		} catch (e) {
 			alert("Objeto de pagamento inválido!");
 			return;
 		}
@@ -166,10 +166,21 @@ export default class Component extends React.Component {
 		console.log(decodedPaymentPayload);
 
 		if (!name) {
-			this.setState({ sender:{ name: decoded.name, email: decoded.sub } });
+			this.setState({
+				sender: { name: decoded.name, email: decoded.sub },
+			});
 		}
 
-		this.setState(decodedPaymentPayload, () => console.log(this.state));
+		this.setState(
+			{
+				frete: decodedPaymentPayload.frete[0].price,
+				idService: decodedPaymentPayload.frete[0].idService,
+				items: decodedPaymentPayload.items,
+				afiliadoCode: decodedPaymentPayload.afiliadoCode,
+				reference: decoded.id
+			},
+			() => console.log(this.state)
+		);
 		if (!session) {
 			axios
 				.post(`${config.endpoint}/session`)
@@ -187,8 +198,8 @@ export default class Component extends React.Component {
 		console.log("sending to API...");
 		console.log(data);
 		data.afiliadoCode = this.state.afiliadoCode;
-		data.idService = 1;
-		data.frete = 1;
+		data.idService = this.state.idService;
+		data.frete = this.state.frete;
 		this.setState({
 			loading: true,
 			error: null,
