@@ -128,10 +128,23 @@ export default class Component extends React.Component {
 
 			items: [
 				{
+					id: 3,
+					description: 'Feijão Preto - StarBucks',
+					quantity: 4,
+					amount: 9.90,
+				},
+				{
+					id: 2,
+					description: 'Farinha Láctea',
+					quantity: 2,
+					amount: 7.90,
+				},
+
+				{
 					id: 1,
-					description: 'Webnário Amazon',
-					quantity: 1,
-					amount: 247.50,
+					description: 'Arroz Rampineli',
+					quantity: 5,
+					amount: 3.80,
 				}
 				
 			],
@@ -141,12 +154,12 @@ export default class Component extends React.Component {
 			creditCard: {
 
 				//pagamento parcelado sem juros: PRECISA SER MAIOR MAIOR OU IGUAL A "2" !
-				maxInstallmentNoInterest: 3,
+				maxInstallmentNoInterest: 10,
 				
 			},
 
 			extraAmount: 0,
-			reference: 'Produtor: Congreco Online'
+			reference: 2
 		}
 	}
 
@@ -179,7 +192,7 @@ export default class Component extends React.Component {
 			paymentLink: null
 		})
 
-		axios.post(`${config.endpoint}/directPayment`, data)
+		axios.post(`${config.endpoint}/directPayment/payment`, data)
 			.then(res => {
 
 				const { content } = res.data
@@ -265,7 +278,7 @@ export default class Component extends React.Component {
 					exclude={[
 						// 'CREDIT_CARD',
 						//'ONLINE_DEBIT',
-						//'BOLETO'
+						'BOLETO'
 					]}
 					onError={this.onError.bind(this)}
 					onSubmit={this.onSubmit.bind(this)}
